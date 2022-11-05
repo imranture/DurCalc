@@ -41,7 +41,7 @@ col5, col6 = st.columns(2)
 
 # Calculate the duration
 ## Add an option to whether include end date in calculation
-if col6.checkbox('Include the end day as well?'):
+if col6.checkbox('Include the end date as well?'):
 	delta_date = end_date - start_date + dt.timedelta(days = 1)
 else:
 	delta_date = end_date - start_date
