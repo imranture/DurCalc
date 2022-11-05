@@ -7,11 +7,13 @@ import datetime as dt
 import streamlit as st
 
 # Use wide mode
-st.set_page_config(layout = 'wide')
+# st.set_page_config(layout = 'wide')
 
 # Set title
-st.write('# *Date/Time Duration* Calculator')
-st.write('##### A very simple app to help you calculate days between dates:')
+html_string = "<h3>this is an html string</h3>"
+html_string = "<SPAN STYLE='font-size:3em'>this is an html string</SPAN>"
+st.write('## ***DurCalc***', "<span style = 'font-size: 0.7em; font-weight: normal'>: A Simple Date/Time Duration Calculator</span>", unsafe_allow_html = True)
+st.write("<span style = 'font-size: 1.1em; font-weight: normal'>This app helps you calculate duration between dates and/or times without any fuss.</span>", unsafe_allow_html = True)
 
 # Set columns
 col1, col2 = st.columns(2)
@@ -39,8 +41,6 @@ delta_date = end_date - start_date
 # start_time = dt.datetime(2010,10,10,10,10,10).time()
 # delta_time = end_time - start_time
 delta_time = dt.datetime.combine(dt.date.today(), end_time) - dt.datetime.combine(dt.date.today(), start_time)
-
-
 
 # Calculate button
 if st.button('Calculate'):
