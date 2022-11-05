@@ -17,7 +17,7 @@ st.write("<span style = 'font-size: 1.1em; font-weight: normal'>This app helps y
 # Set columns for firt row
 col1, col2 = st.columns(2)
 
-# User enters start- date and time
+# User enters start date and time
 start_date = col1.date_input('Start Date')
 start_time = col2.time_input('Start Time')
 start_datetime = dt.datetime.combine(start_date, start_time)
