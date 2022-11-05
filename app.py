@@ -45,9 +45,9 @@ delta_time = dt.datetime.combine(dt.date.today(), end_time) - dt.datetime.combin
 # Calculate button
 if st.button('Calculate'):
 	if delta_date.days > 1:
-		st.write(f'#### {delta_date.days} days and {delta_time.seconds} seconds apart!', unsafe_allow_html = True)
+		st.write(f"<span style = 'font-size: 1.5em; font-weight: normal'>{delta_date.days} days and {delta_time.seconds} seconds apart!</span>", unsafe_allow_html = True)
 	else:
-		st.write(f'#### {delta_date.days} day and {delta_time.seconds} seconds apart!', unsafe_allow_html = True)
+		st.write(f"<span style = 'font-size: 1.5em; font-weight: normal'>{delta_date.days} day and {delta_time.seconds} seconds apart!</span>", unsafe_allow_html = True)
 	# st.write(f'Equivalent to {round(delta.days / 365, 0)} years.')
 	# st.write(f'Equivalent to {delta_time} hours.')
 	# st.write(f'Equivalent to {delta.days * 24 * 60} minutes.')
