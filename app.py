@@ -36,13 +36,22 @@ end_datetime = dt.datetime.combine(end_date, end_time)
 # Add a horizontal line
 st.markdown('''---''')
 
+# Set columns for second row
+col5, col6 = st.columns(2)
+
 # Calculate the duration
-delta_date = end_date - start_date
+## Add an option to whether include end date in calculation
+if col6.checkbox('Include the end day as well?'):
+	delta_date = end_date - start_date + dt.timedelta(days = 1)
+else:
+	delta_date = end_date - start_date
 delta_time = dt.datetime.combine(dt.date.today(), end_time) - dt.datetime.combine(dt.date.today(), start_time)
 
 # Calculate button
-if st.button('Calculate'):
+if col5.button('Calculate'):
 	if delta_date.days > 1:
 		st.write(f"<span style = 'font-size: 1.5em; font-weight: normal'>{delta_date.days} days and {delta_time.seconds} seconds apart!</span>", unsafe_allow_html = True)
 	else:
 		st.write(f"<span style = 'font-size: 1.5em; font-weight: normal'>{delta_date.days} day and {delta_time.seconds} seconds apart!</span>", unsafe_allow_html = True)
+
+
