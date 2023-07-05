@@ -1,6 +1,6 @@
 """
-# DurCalc: A Simple Date/Time Duration Calculator
-This app helps you calculate duration between dates and/or times without any fuss.
+# DurCalc: Hassle-Free Calculation of Date and Time Durations
+This app helps you calculate the duration between dates and/or times without any fuss.
 """
 
 # Import libraries
@@ -11,8 +11,8 @@ import streamlit as st
 # st.set_page_config(layout = 'wide')
 
 # Set title
-st.write('## ***DurCalc***', "<span style = 'font-size: 0.7em; font-weight: normal'>: A Simple Date/Time Duration Calculator</span>", unsafe_allow_html = True)
-st.write("<span style = 'font-size: 1.1em; font-weight: normal'>This app helps you calculate duration between dates and/or times without any fuss.</span>", unsafe_allow_html = True)
+st.write('## ***DurCalc***', "<span style = 'font-size: 0.7em; font-weight: normal'>: Hassle-Free Calculation of Date and Time Durations</span>", unsafe_allow_html = True)
+st.write("<span style = 'font-size: 1.1em; font-weight: normal'>This app helps you calculate the duration between dates and/or times without any fuss.</span>", unsafe_allow_html = True)
 
 # Set columns for firt row
 col1, col2 = st.columns(2)
