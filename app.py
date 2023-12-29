@@ -1,6 +1,6 @@
 """
-# DurCalc: A Simple Date/Time Duration Calculator
-This app helps you calculate duration between dates and/or times without any fuss.
+# DurCalc: Hassle-Free Calculation of Date and Time Durations
+This app helps you calculate the duration between dates and/or times without any fuss.
 """
 
 # Import libraries
