@@ -9,7 +9,7 @@ import pytz
 import streamlit as st
 
 # --- --- --- --- --- ---
-# Section 1: App
+# Section 1: Web App
 # --- --- --- --- --- ---
 
 # Use wide mode
