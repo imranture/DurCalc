@@ -5,6 +5,7 @@ This app helps you calculate the duration between dates and/or times without any
 
 # Import libraries
 import datetime as dt
+import pytz
 import streamlit as st
 
 # --- --- --- --- --- ---
@@ -26,36 +27,70 @@ st.write(
 )
 
 # Set columns for firt row
-col1, col2 = st.columns(2)
+col1, col2, col3 = st.columns(3)
 
 # User enters start date and time
 start_date = col1.date_input("Start Date")
 start_time = col2.time_input("Start Time")
 start_datetime = dt.datetime.combine(start_date, start_time)
 
+# Initialize session state for the start timezone if not already done
+if "start_timezone" not in st.session_state:
+    st.session_state["start_timezone"] = "UTC"
+
+# Add a timezone selection box
+start_timezone = col3.selectbox(
+    "Start Timezone",
+    pytz.all_timezones,
+    index=pytz.all_timezones.index(st.session_state["start_timezone"]),
+)
+
+# Adjust the start_datetime to include the timezone
+start_tz = pytz.timezone(start_timezone)
+start_datetime = dt.datetime.combine(start_date, start_time)
+start_datetime = start_tz.localize(start_datetime)
+
 # Add a horizontal line
 st.markdown("""---""")
 
 # Set columns for second row
-col3, col4 = st.columns(2)
+col4, col5, col6 = st.columns(3)
 
 # User enters end date and time
-end_date = col3.date_input("End Date")
-end_time = col4.time_input("End Time")
+end_date = col4.date_input("End Date")
+end_time = col5.time_input("End Time")
 end_datetime = dt.datetime.combine(end_date, end_time)
+end_datetime = start_datetime.astimezone(pytz.utc)
+
+# Initialize session state for the end timezone if not already done
+if "end_timezone" not in st.session_state:
+    st.session_state["end_timezone"] = "UTC"
+
+# Add a timezone selection box
+end_timezone = col6.selectbox(
+    "End Timezone",
+    pytz.all_timezones,
+    index=pytz.all_timezones.index(st.session_state["end_timezone"]),
+)
+
+# Adjust the end_datetime to include the timezone
+end_tz = pytz.timezone(end_timezone)
+end_datetime = dt.datetime.combine(end_date, end_time)
+end_datetime = end_tz.localize(end_datetime)
+end_datetime = end_datetime.astimezone(pytz.utc)
 
 # Add a horizontal line
 st.markdown("""---""")
 
 # Set columns for second row
-col5, col6 = st.columns(2)
+col7, col8 = st.columns(2)
 
 # --- --- --- --- --- ---
 # Section 2: Calculator
 # --- --- --- --- --- ---
 
 # Add an option to whether include end date in calculation
-include_end_date = col6.checkbox("Include the end date as well?")
+include_end_date = col8.checkbox("Include the end date as well?")
 
 
 # Function to convert seconds into hours, minutes, and seconds
@@ -67,26 +102,27 @@ def convert_seconds_to_hms(seconds):
 
 
 # Calculate button
-if col5.button("Calculate"):
+if col7.button("Calculate"):
+    # Selected timezones
+    st.session_state["start_timezone"] = start_timezone
+    st.session_state["end_timezone"] = end_timezone
+
     # Error check for same day with end time earlier than start time
     if start_date == end_date and end_time < start_time:
         st.error("Error: End time cannot be earlier than start time on the same day.")
     else:
-        # Calculate the number of days between dates
-        delta_days = (end_date - start_date).days
+        # Calculate the number of days between dates (using UTC converted times)
+        delta_days = (end_datetime.date() - start_datetime.date()).days
 
         # Adjust for including the end date
         if include_end_date:
             delta_days += 1
 
-        # Calculate the time difference
-        delta_time = (
-            dt.datetime.combine(dt.date.min, end_time)
-            - dt.datetime.combine(dt.date.min, start_time)
-        ).total_seconds()
+        # Calculate the time difference (using UTC converted times)
+        delta_time = (end_datetime - start_datetime).total_seconds()
 
-        # If end time is earlier than start time and dates are different, adjust the delta_days and delta_time
-        if end_date > start_date and delta_time < 0:
+        # If the end time is earlier than start time and dates are different, adjust the delta_days
+        if delta_days > 0 and delta_time < 0:
             delta_days -= 1
             delta_time += 24 * 3600  # Add 24 hours in seconds
 
