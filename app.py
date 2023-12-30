@@ -107,11 +107,9 @@ if col7.button('Calculate'):
     end_datetime_utc = end_datetime.astimezone(pytz.utc)
 
     # Error check for same day with end time earlier than start time, considering timezones
-    if (
-        start_datetime_utc.date() == end_datetime_utc.date()
-        and end_datetime_utc.time() < start_datetime_utc.time()
-    ):
-        st.error('Error: End time cannot be earlier than start time on the same day.')
+    if end_datetime_utc.date() < start_datetime_utc.date() or \
+        (start_datetime_utc.date() == end_datetime_utc.date() and end_datetime_utc.time() < start_datetime_utc.time()):
+        st.error('Error: End date and time cannot be earlier than start date and time.')
     else:
         # Calculate the number of days between dates
         delta_days = (end_datetime_utc.date() - start_datetime_utc.date()).days
