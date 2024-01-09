@@ -86,8 +86,8 @@ col7, col8 = st.columns(2)
 # Section 2: Calculator
 # --- --- --- --- --- ---
 
-# Add an option to whether include end date in calculation
-include_end_date = col8.checkbox('Include the end date as well?')
+# # Add an option to whether include end date in calculation
+# include_end_date = col8.checkbox('Include the end date as well?')
 
 # Function to convert seconds into hours, minutes, and seconds
 def convert_seconds_to_hms(seconds):
@@ -114,9 +114,9 @@ if col7.button('Calculate'):
         # Calculate the number of days between dates
         delta_days = (end_datetime_utc.date() - start_datetime_utc.date()).days
 
-        # Adjust for including the end date
-        if include_end_date:
-            delta_days += 1
+        # # Adjust for including the end date
+        # if include_end_date:
+        #     delta_days += 1
 
         # Calculate the time difference within a day
         delta_time = (end_datetime_utc - start_datetime_utc).seconds
