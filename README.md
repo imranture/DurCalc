@@ -5,3 +5,5 @@ DurCalc is a hassle-free app designed to effortlessly calculate the duration bet
 ![DurCalc Screenshot](/screenshot.png "DurCalc")
 
 Available at https://durcalc.streamlit.app/
+
+For any inquiries or further information, please contact via www.imranture.com.
